@@ -119,7 +119,7 @@ your laptop username. Your instructor will tell you which hosts to use.
 | You see | Do this |
 |---|---|
 | `gh is not installed` / `git is not installed` | install it (table above), open a new terminal, re-run |
-| `cannot reach pg.mlds.northwestern.edu` | connect to campus Wi-Fi or the NU VPN, re-run |
+| `cannot reach …` (a server name) | connect to campus Wi-Fi or the NU VPN, re-run |
 | `GitHub account '…' is not on file for anyone` | tell your instructor or TA your exact GitHub username, then re-run |
 | `report timestamp is off by more than 10 minutes` | your computer's clock is wrong; fix it, re-run |
 | `…pub does not belong to …` | that key file and its `.pub` don't match. Move both out of `~/.ssh`, re-run, and the tool makes a fresh pair |
