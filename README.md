@@ -114,31 +114,33 @@ ssh <your-netid>@wolf.mlds.private
 Your username on the servers is your **NetID**, not your GitHub name and not
 your laptop username. Your instructor will tell you which hosts to use.
 
-## Server password (Posit, psql)
+## Your MLDS server password
 
-Logging in with `ssh` uses your key and needs no password. Two things do
-need one: **Posit Workbench** in the browser, and **psql** or any other
-database connection to the teaching Postgres. Set it once, from your laptop:
+You have **one MLDS server password, the same on every MLDS server**. It is
+what anything with a password prompt asks for: Posit Workbench in the
+browser, JupyterHub, `psql` and any other database client. `ssh` is the
+exception: it uses your key and never asks. Set the
+password once, from your laptop:
 
 ```
 ./mlds-setup-darwin-arm64 password      # Mac; Windows: .\mlds-setup-windows-amd64.exe password
 ```
 
 It asks for the password twice (nothing is shown as you type), at least 12
-characters. **Do not use your Northwestern NetID password.** Pick a new one
-that you use only for the MLDS servers. It is hashed on your laptop before
-anything is sent, and it works on every server within a few seconds.
+characters. **Do not reuse your Northwestern NetID password.** Pick a new one
+just for the MLDS servers. It is hashed on your laptop before anything is
+sent, and it works on every MLDS server within a few seconds.
 
 | Where | Username | Password |
 |---|---|---|
-| Posit Workbench | your NetID | the one you just set |
-| `psql -h pg.mlds.northwestern.edu -U <netid> <db>` (and any DB client) | your NetID | the one you just set |
+| Posit Workbench, JupyterHub, anything in a browser | your NetID | your MLDS server password |
+| `psql -h pg.mlds.northwestern.edu -U <netid> <db>` (and any DB client) | your NetID | your MLDS server password |
 | `ssh` | your NetID | none — your key |
 
 Forgot it, or want a new one? Run `mlds-setup password` again; the new
 password replaces the old one. There is nothing to reset and nobody to ask.
-If a normal `mlds-setup` run ends with `no server password set yet`, this is
-the step it means.
+If a normal `mlds-setup` run ends with `no MLDS server password set yet`,
+this is the step it means.
 
 ## If something goes wrong
 
