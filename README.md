@@ -114,6 +114,32 @@ ssh <your-netid>@wolf.mlds.private
 Your username on the servers is your **NetID**, not your GitHub name and not
 your laptop username. Your instructor will tell you which hosts to use.
 
+## Server password (Posit, psql)
+
+Logging in with `ssh` uses your key and needs no password. Two things do
+need one: **Posit Workbench** in the browser, and **psql** or any other
+database connection to the teaching Postgres. Set it once, from your laptop:
+
+```
+./mlds-setup-darwin-arm64 password      # Mac; Windows: .\mlds-setup-windows-amd64.exe password
+```
+
+It asks for the password twice (nothing is shown as you type), at least 12
+characters. **Do not use your Northwestern NetID password.** Pick a new one
+that you use only for the MLDS servers. It is hashed on your laptop before
+anything is sent, and it works on every server within a few seconds.
+
+| Where | Username | Password |
+|---|---|---|
+| Posit Workbench | your NetID | the one you just set |
+| `psql -h pg.mlds.northwestern.edu -U <netid> <db>` (and any DB client) | your NetID | the one you just set |
+| `ssh` | your NetID | none — your key |
+
+Forgot it, or want a new one? Run `mlds-setup password` again; the new
+password replaces the old one. There is nothing to reset and nobody to ask.
+If a normal `mlds-setup` run ends with `no server password set yet`, this is
+the step it means.
+
 ## If something goes wrong
 
 | You see | Do this |
@@ -129,13 +155,20 @@ your laptop username. Your instructor will tell you which hosts to use.
 | a host in the login test says `permission denied` or `timed out during login` | that server isn't set up for your account yet; tell your instructor which one. Your key is fine |
 | `host key changed` | don't log in to that host; tell your instructor |
 | `Permission denied` when you `ssh` later | run `mlds-setup` again. Still stuck? Send your instructor the output |
+| `no private key on this machine is on github.com/<you>.keys — run plain mlds-setup first` (from `mlds-setup password`) | this laptop hasn't been set up yet; run `mlds-setup` with no arguments, then `mlds-setup password` |
+| `stdin is not a terminal` (from `mlds-setup password`) | run it in a normal terminal window, not from a script or an IDE's output pane |
+| `…not newer than the last password change` / "run mlds-setup password again" | just run it again |
+| Posit or psql rejects the password you set | give it a few seconds and retry; still no? tell your instructor which server |
+| `TLS: the server's certificate could not be verified` | a hotel/café network or proxy is in the way; use campus Wi-Fi or the NU VPN |
 
 ## What it sends, and what it doesn't
 
 The tool sends the MLDS server your GitHub username, basic facts about your
 laptop (OS, version, RAM, free disk, which dev tools are installed) and the
 fingerprints of your SSH keys, signed with your SSH key so we know it's you.
-It never sends a private key, never sends your GitHub password or token, and
-never deletes anything. The server fetches your public keys straight from
+`mlds-setup password` sends a one-way hash of the server password you typed,
+signed the same way, over HTTPS; the password itself never leaves your
+laptop. It never sends a private key, never sends your GitHub password or
+token, and never deletes anything. The server fetches your public keys straight from
 GitHub, so what's at https://github.com/settings/keys is exactly what gets
 you in.
