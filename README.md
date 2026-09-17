@@ -88,8 +88,8 @@ The tool prints a checklist. `[ok]` is good, `[--]` is just information,
 - **Ask for a key's passphrase** if the key you chose is passphrase-protected.
   That's the tool proving the key is really yours before uploading it.
 
-At the end it registers you and then tries to log in to each server with
-your key, one line per server:
+At the end it registers you and then tries to log in, with your key, to each
+server your account is enabled on, one line per server:
 
 ```
 == MLDS servers
@@ -97,13 +97,15 @@ your key, one line per server:
 
 == Login test
 [ok] wolf.mlds.private
-[!!] posit.mlds.northwestern.edu: permission denied (publickey)
+[ok] posit.mlds.northwestern.edu
+[--] deepdish5.mlds.private: not enabled for your account
 
 All done.
 ```
 
-A green host is ready for you. A red host is one your instructor still has
-to set up for you; your key is on file, so nothing more is needed from you.
+A green host is ready for you. A `[--]` host exists but isn't enabled for
+your account (that's a roster setting, not a key problem). A red host is
+enabled for you but refused the key; tell your instructor which one.
 
 ## Log in
 
