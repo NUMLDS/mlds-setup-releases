@@ -34,7 +34,9 @@ the file for your machine:
 | Mac with Apple Silicon (M1/M2/M3/M4) | `mlds-setup-darwin-arm64` |
 | Mac with Intel | `mlds-setup-darwin-amd64` |
 | Windows | `mlds-setup-windows-amd64.exe` |
+| Windows on ARM (Snapdragon, Surface Pro X) | `mlds-setup-windows-arm64.exe` |
 | Linux or WSL | `mlds-setup-linux-amd64` |
+| Linux on ARM (ARM Chromebook, Raspberry Pi) | `mlds-setup-linux-arm64` |
 
 Not sure which Mac you have? Apple menu → About This Mac. "Chip: Apple M…"
 is Apple Silicon.
@@ -57,7 +59,7 @@ If macOS still refuses: System Settings → Privacy & Security → scroll down �
 
 ```
 cd ~\Downloads
-.\mlds-setup-windows-amd64.exe
+.\mlds-setup-windows-amd64.exe     # or -arm64
 ```
 
 If SmartScreen appears: **More info → Run anyway**. The window waits for
@@ -67,7 +69,7 @@ Enter at the end so you can read the output.
 
 ```
 cd ~/Downloads
-chmod +x mlds-setup-linux-amd64
+chmod +x mlds-setup-linux-amd64     # or -arm64
 ./mlds-setup-linux-amd64
 ```
 
@@ -85,8 +87,9 @@ The tool prints a checklist. `[ok]` is good, `[--]` is just information,
   passphrase, so it just works.
 - **Ask before adding a key to GitHub** if you have several. Say `Y` for the
   key you want to use for MLDS. Nothing is ever removed from your account.
-- **Ask for a key's passphrase** if the key you chose is passphrase-protected.
-  That's the tool proving the key is really yours before uploading it.
+- **Skip a passphrase-protected key** unless ssh-agent has it loaded. It says
+  so with a `[!!]` line and the command to remove the passphrase; it never asks
+  for one. If that leaves no usable key, it creates `~/.ssh/id_ed25519`.
 
 At the end it registers you and then tries to log in, with your key, to each
 server your account is enabled on, one line per server:
@@ -98,7 +101,7 @@ server your account is enabled on, one line per server:
 == Login test
 [ok] wolf.mlds.private
 [ok] posit.mlds.northwestern.edu
-[--] deepdish5.mlds.private: not enabled for your account
+[--] mlds-deepdish5.ads.northwestern.edu: not enabled for your account
 
 All done.
 ```
